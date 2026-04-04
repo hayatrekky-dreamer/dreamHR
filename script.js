@@ -156,7 +156,7 @@ setInterval(() => {
 /* =========================
    💬 RSVP GOOGLE SHEET
 ========================== */
-const sheetURL = "https://script.google.com/macros/s/AKfycbwYK08sIfX2BCCspYDIqA3UJ0hPQ3r8zLr20JispoEVYuSsvXjbtsFqSgR0Qu9dGrnA/exec";
+const sheetURL = "https://script.google.com/macros/s/AKfycbxT4iS4Qb6LHWsjJ9GvrweeWwZLk-aGiaypGLEdPC2qDBXo5JYxmViFDugyqeVEVxi9/exec";
 
 const form = document.getElementById("rsvpForm");
 
@@ -207,27 +207,43 @@ function renderUcapan(data) {
   data.forEach((item, index) => {
     const div = document.createElement("div");
 
-    const posisi = item.nama === form.nama.value ? "chat-right" : "chat-left";
+    // posisi kanan kalau itu pesan kita
+    const posisi = (form && item.nama === form.nama.value) 
+      ? "chat-right" 
+      : "chat-left";
+
+    // 🔥 ambil waktu dari spreadsheet
+    let jam = "--:--";
+    if (item.waktu) {
+      const t = new Date(item.waktu);
+
+      // cek valid date
+      if (!isNaN(t)) {
+        jam = t.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      }
+    }
 
     div.className = `chat-bubble ${posisi}`;
 
     div.innerHTML = `
       <div class="chat-name">${item.nama || "Anonim"}</div>
       <div class="chat-text">${item.ucapan || "-"}</div>
-      <div class="chat-time">${new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      })}</div>
+      <div class="chat-time">${jam}</div>
     `;
 
     list.appendChild(div);
   });
 
   // 🔥 update judul
-  document.getElementById("judulUcapan").innerText =
-    `Ucapan Tamu (${data.length} Ucapan)`;
+  const judul = document.getElementById("judulUcapan");
+  if (judul) {
+    judul.innerText = `Ucapan Tamu (${data.length} Ucapan)`;
+  }
 
-  // 🔥 scroll ke bawah
+  // 🔥 auto scroll ke bawah
   list.scrollTop = list.scrollHeight;
 }
 /* =========================
