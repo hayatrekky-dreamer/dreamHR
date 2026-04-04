@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan H&R - Eternal Love</title>
+
+<!-- FONT PREMIUM -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Poppins:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+<button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+  <i class="fas fa-volume-up"></i>
+</button>
+
+<!-- 💌 COVER LUXURY -->
+<div class="cover" id="cover">
+  <div class="floating-particles"></div>
+  <div class="light-effect"></div>
+  <div class="envelope luxury-envelope">
+    <div class="envelope-body">
+      <div class="flap luxury-flap">
+        <div class="flap-decoration">
+          <i class="fas fa-crown"></i>
+        </div>
+      </div>
+      
+      <div class="letter luxury-letter">
+        <div class="overlay premium-overlay">
+          <div class="header-badge">
+            <i class="fas fa-heart"></i>
+          </div>
+          
+          <p class="small elegant">Dengan Rahmat Tuhan Yang Maha Esa</p>
+          <h1 class="gold-text">Hayatun & Rekky</h1>
+          
+          <div class="guest-section">
+            <p class="small">Kepada Yth Bapak/Ibu/Saudara/i</p>
+            <h3 id="guestName" class="guest-name"></h3>
+          </div>
+
+          
+
+          <button onclick="openInvitation()" class="cta-button">
+            <span>Buka Undangan</span>
+            
+          </button>
+
+          <div class="luxury-countdown">
+  <div class="count-box"><span id="days">00</span></div>
+  <div class="separator">:</div>
+
+  <div class="count-box"><span id="hours">00</span></div>
+  <div class="separator">:</div>
+
+  <div class="count-box"><span id="minutes">00</span></div>
+  <div class="separator">:</div>
+
+  <div class="count-box"><span id="seconds">00</span></div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✨ MAIN CONTENT -->
+<main id="content" style="display:none;">
+  <!-- HERO -->
+  <section class="hero fade">
+    <div class="hero-content">
+      <h2 class="hero-title">
+        <span>Hayatun Nufus</span><br> <i class="fas fa-heart gold-heart"></i> <br> <span>Rekky Ramadhan</span>
+      </h2>
+      <p class="hero-subtitle">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+      <p>Dengan penuh kebahagiaan dan keberkahan, kami mengundang Anda untuk hadir di hari istimewa kami.</p>
+    </div>
+  </section>
+
+  <!-- DATE & LOCATION -->
+  <section class="event fade">
+    <h2><i class="fas fa-calendar-alt"></i> In Sya Allah akan dilaksanakan pada:</h2>
+    <div class="event-date">
+      <h3>Jumat, 26 Juni 2026</h3>
+      <p>08:00 WIB - Akad Nikah</p>
+      <p>14:00 WIB - Resepsi</p>
+    </div>
+    
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.221632934414!2d100.6853504!3d-0.8047585999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2b33006a87c2a3%3A0x797a804b397716ba!2sBidan%20Hazimah!5e1!3m2!1sid!2sid!4v1775017390903!5m2!1sid!2sid"
+        loading="lazy">
+      </iframe>
+      <a href="#" onclick="openNavigation()" class="map-btn luxury">
+        <i class="fas fa-map-marker-alt"></i> Arah Navigasi
+      </a>
+    </div>
+  </section>
+
+  <!-- LOVE STORY -->
+  <section class="story fade">
+    <h2><i class="fas fa-book-open"></i> Love Story</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="date">2023</span>
+        <p>Pertemuan pertama yang penuh berkah</p>
+      </div>
+      <div class="timeline-item">
+        <span class="date">2024</span>
+        <p>Ta'aruf & Restu Orang Tua</p>
+      </div>
+      <div class="timeline-item">
+        <span class="date">2026</span>
+        <p>Hari Bahagia 💍</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMPELAI WOMAN -->
+<section class="mempelai woman fade" data-aos="woman">
+  <div class="mempelai-container">
+    <div class="photo-frame">
+      <img src="assets/pengantin-wanita.jpg" alt="Mempelai Wanita" class="mempelai-photo">
+      <div class="photo-overlay">
+        <div class="frame-decoration">
+          <i class="fas fa-crown"></i>
+        </div>
+      </div>
+    </div>
+    <div class="mempelai-info">
+      <h3>Putri Cantik</h3>
+      <p class="subtitle">Putri bunga yang akan mekar abadi dalam pelukan cinta sejati</p>
+      <div class="detail">
+        <p><i class="fas fa-child"></i> Hayatun Nufus</p>
+        <p><i class="fas fa-home"></i> Putri kedua dari Bapak Anizar & Ibu Armita</p>
+        <p><i class="fas fa-map-marker-alt"></i> Solok, Sumatera Barat</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMPELAI MAN -->
+<section class="mempelai man fade" data-aos="man">
+  <div class="mempelai-container">
+    <div class="photo-frame">
+      <img src="assets/pengantin-pria.jpg" alt="Mempelai Pria" class="mempelai-photo">
+      <div class="photo-overlay">
+        <div class="frame-decoration">
+          <i class="fas fa-crown"></i>
+        </div>
+      </div>
+    </div>
+    <div class="mempelai-info">
+      <h3>Pangeran Tampan</h3>
+      <p class="subtitle">Pemimpin yang teguh menjaga amanah cinta hingga akhir hayat</p>
+      <div class="detail">
+        <p><i class="fas fa-child"></i> Rekky Ramadhan</p>
+        <p><i class="fas fa-home"></i> Anak sulung dari Bapak Hadi Porwanto & Ibu Vivi Shopiah</p>
+        <p><i class="fas fa-map-marker-alt"></i> Palangka Raya, Kalimantan Tengah</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- GIFT - LUXURY VERSION -->
+<section class="gift fade luxury-section">
+  <div class="section-header">
+    <i class="fas fa-gift"></i>
+    <h2>Kehadiran Anda <span class="gradient-text">Adalah Doa Terbaik</span></h2>
+  </div>
+  
+  <div class="gift-container">
+    <div class="gift-card floating">
+      <div class="card-header">
+        <i class="fab fa-cc-bca"></i>
+        <h3>Bank Central Asia</h3>
+      </div>
+      <div class="card-body">
+        <div class="account-number" id="rek">1234 5678 9</div>
+<button class="copy-btn" onclick="copyRek()">Salin Rekening</button>
+        
+        <div class="account-name">a.n Rekky Pratama</div>
+      </div>
+      <div class="card-footer">
+        <p>Doa restu Anda lebih berharga dari apapun ✨</p>
+      </div>
+    </div>
+    
+    <div class="gift-qr">
+      <div class="qr-placeholder">
+        <i class="fas fa-qrcode"></i>
+        <p>Scan QRIS</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP - PREMIUM GUESTBOOK -->
+<section class="rsvp fade luxury-section">
+  <div class="section-header">
+    <i class="fas fa-comments"></i>
+    <h2>Buku Tamu <span class="gradient-text">Digital</span></h2>
+  </div>
+  <div class="rsvp-wrapper"> 
+<div class="rsvp-container">
+    <!-- FORM -->
+    <div class="form-card floating">
+      <h3>Tulis Ucapan & Doa</h3>
+      <form id="rsvpForm">
+        <div class="input-group">
+          <input type="text" name="nama" placeholder="Nama *" required>
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="textarea-group">
+          <textarea name="ucapan" placeholder="Ucapan, doa, dan harapan untuk pasangan..." rows="5" required></textarea>
+          <i class="fas fa-heart"></i>
+        </div>
+        <button type="submit" class="submit-btn">
+          <span>Kirim Ucapan</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+      <p id="status"></p>
+    </div>
+    
+    <!-- GUESTBOOK -->
+    <div class="guestbook-container">
+      <h3 id="judulUcapan">Ucapan Tamu (0 Ucapan)</h3>
+      <div id="listUcapan" class="guestbook-list"></div>
+    </div>
+  </div>
+  </div>
+  
+</section>
+
+<!-- PARTICLES & SPARKLES -->
+<canvas id="particles-canvas"></canvas>
+<div id="sparkle-container"></div>
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
