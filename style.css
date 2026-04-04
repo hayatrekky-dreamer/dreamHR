@@ -347,6 +347,27 @@ body {
   margin: 0 auto;
 }
 
+.hero-title.bottom {
+  position: absolute;
+  bottom: 30px; /* sedikit naik biar balance */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.hero-title.bottom span {
+  white-space: nowrap;
+}
+
+.gold-heart {
+  font-size: 18px;
+}
+
 .hero {
   position: relative;
   text-align: center;
@@ -356,7 +377,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end; /* ⬅️ dorong ke bawah */
+  align-items: center; /* 🔥 UBAH INI */
+  position: relative;
   padding: 60px 20px;
   text-align: center;
 
@@ -374,7 +396,7 @@ body {
   }
 
 .arab {
-  font-size: 30px;
+  font-size: 40px;
   font-family: 'Amiri', serif;
   margin-bottom: 10px;
 }
@@ -981,10 +1003,79 @@ body {
 
 /* WAKTU */
 .chat-time {
-  font-size: 10px;
-  opacity: 0.6;
-  margin-top: 5px;
+  font-size: 8px;
+  opacity: 0.65;
+  margin-top: 6px;
   text-align: right;
+  letter-spacing: 0.3px;
+
+  /* ✨ tambahan biar elegant */
+  font-weight: 300;
+  font-family: 'Poppins', sans-serif;
+}
+/* ✨ TEXT UCAPAN */
+.chat-text {
+  margin-top: 4px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* ✨ NAMA */
+.chat-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFD700; /* gold accent */
+  margin-bottom: 2px;
+}
+
+/* ✨ BUBBLE EFFECT LEBIH HALUS */
+.chat-bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+
+  animation: fadeUp 0.4s ease;
+}
+
+/* KIRI */
+.chat-left {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.12);
+  border-bottom-left-radius: 6px;
+}
+
+/* KANAN */
+.chat-right {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: #000;
+  border-bottom-right-radius: 6px;
+}
+
+/* ✨ ARROW BUBBLE HALUS */
+.chat-left::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 12px;
+  border: 6px solid transparent;
+  border-right-color: rgba(255,255,255,0.12);
+}
+
+.chat-right::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 12px;
+  border: 6px solid transparent;
+  border-left-color: #D4AF37;
 }
 
 /* ANIMASI */
@@ -1083,9 +1174,13 @@ body {
 
   /* 🔥 TEXT BAWAH */
 .hero-text {
-  margin-bottom: 40px;
+  position: relative;
+  margin-top: 80px; /* 🔥 ini yang bikin turun halus */
   animation: fadeUp 1.5s ease forwards;
+  z-index: 2;
 }
+
+
 
 @keyframes fadeUp {
   from {
@@ -1100,17 +1195,21 @@ body {
 
 /* ✨ ARABIC STYLE */
 .arab {
-  font-size: 30px;
+  font-size: 40px;
   font-family: 'Amiri', serif;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* lebih rapet */
 }
 
 /* SUBTITLE */
 .hero-subtitle {
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 8px; /* lebih dekat */
 }
 
+.hero-text p:last-child {
+  font-size: 14px;
+  opacity: 0.9;
+}
  .hero-title {
     font-size: 26px;
   }

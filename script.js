@@ -145,32 +145,70 @@ if(form){
   });
 }
 
+/* =========================
+   ➕ TAMBAH CHAT BARU (REALTIME)
+========================== */
 function tambahChatBaru(nama, ucapan){
   const list = document.getElementById("listUcapan");
+
+  const now = new Date();
+
+  const jam = now.toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  const tanggal = now.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
 
   const div = document.createElement("div");
   div.className = "chat-bubble chat-right";
   div.innerHTML = `
     <div class="chat-name">${nama}</div>
     <div class="chat-text">${ucapan}</div>
-    <div class="chat-time">Baru saja</div>
+    <div class="chat-time">${tanggal} • ${jam}</div>
   `;
+
   list.appendChild(div);
   list.scrollTop = list.scrollHeight;
 }
 
+/* =========================
+   📥 RENDER DATA DARI SHEET
+========================== */
 function renderUcapan(data){
   const list = document.getElementById("listUcapan");
+  const judul = document.getElementById("judulUcapan");
+
   list.innerHTML = "";
+
+  // 🔥 UPDATE JUMLAH UCAPAN
+  judul.innerHTML = `Ucapan Tamu<br> (${data.length} Ucapan)`;
 
   data.forEach(item=>{
     const div = document.createElement("div");
 
-    let jam="--:--";
+    let jamTanggal = "--";
+
     if(item.waktu){
-      const t=new Date(item.waktu);
-      if(!isNaN(t)){
-        jam=t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+      const waktu = new Date(item.waktu);
+
+      if(!isNaN(waktu)){
+        const jam = waktu.toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+        const tanggal = waktu.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        });
+
+        jamTanggal = `${tanggal} • ${jam}`;
       }
     }
 
@@ -178,14 +216,18 @@ function renderUcapan(data){
     div.innerHTML=`
       <div class="chat-name">${item.nama}</div>
       <div class="chat-text">${item.ucapan}</div>
-      <div class="chat-time">${jam}</div>
+      <div class="chat-time">${jamTanggal}</div>
     `;
+
     list.appendChild(div);
   });
 
   list.scrollTop = list.scrollHeight;
 }
 
+/* =========================
+   🔄 LOAD DATA
+========================== */
 function loadUcapan(){
   fetch(sheetURL)
     .then(res=>res.json())
@@ -199,7 +241,7 @@ setTimeout(loadUcapan,500);
 setInterval(loadUcapan,5000);
 
 /* =========================
-   💍 SLIDER (FINAL FIX)
+   💍 SLIDER
 ========================== */
 const slider = document.querySelector(".slider-wrapper");
 let currentIndex = 0;
@@ -218,7 +260,6 @@ function updateSlide(){
 
 if(slider){
 
-  // mouse
   slider.addEventListener("mousedown", e=>{
     isDown = true;
     startX = e.pageX;
@@ -243,7 +284,6 @@ if(slider){
     slider.style.transform = `translateX(calc(-${currentIndex * 100}% - ${diff}px))`;
   });
 
-  // touch
   slider.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX;
   });
@@ -261,26 +301,21 @@ if(slider){
   updateSlide();
 }
 
-
 /* =========================
-   🔁 AUTO SLIDE LOOP
+   🔁 AUTO SLIDE
 ========================== */
 let autoSlide = setInterval(() => {
   currentIndex++;
-
-  if(currentIndex > 1){ // jumlah slide - 1
-    currentIndex = 0; // 🔥 balik ke awal
+  if(currentIndex > 1){
+    currentIndex = 0;
   }
-
   updateSlide();
-}, 4000); // ganti speed di sini (ms)
+}, 4000);
 
-// stop saat disentuh
 slider.addEventListener("mouseenter", () => clearInterval(autoSlide));
 slider.addEventListener("mousedown", () => clearInterval(autoSlide));
 slider.addEventListener("touchstart", () => clearInterval(autoSlide));
 
-// jalan lagi setelah dilepas
 slider.addEventListener("mouseleave", startAuto);
 slider.addEventListener("mouseup", startAuto);
 slider.addEventListener("touchend", startAuto);
