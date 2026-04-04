@@ -80,7 +80,11 @@ setInterval(createSparkle, 500);
 /* =========================
    ⏳ COUNTDOWN
 ========================== */
-const targetDate = new Date("June 26, 2026 00:00:00").getTime();
+const targetDate = new Date("June 26, 2026 09:00:00").getTime();
+
+function format(n){
+  return n < 10 ? "0" + n : n;
+}
 
 setInterval(()=>{
   const now = Date.now();
@@ -91,10 +95,10 @@ setInterval(()=>{
   const m = Math.floor((gap/(1000*60))%60);
   const s = Math.floor((gap/1000)%60);
 
-  document.getElementById("days").innerText = d;
-  document.getElementById("hours").innerText = h;
-  document.getElementById("minutes").innerText = m;
-  document.getElementById("seconds").innerText = s;
+  document.getElementById("days").innerText = format(d);
+  document.getElementById("hours").innerText = format(h);
+  document.getElementById("minutes").innerText = format(m);
+  document.getElementById("seconds").innerText = format(s);
 },1000);
 
 /* =========================
@@ -108,7 +112,7 @@ const observer = new IntersectionObserver(entries=>{
   });
 },{threshold:0.2});
 
-document.querySelectorAll(".fade").forEach(el=> observer.observe(el));
+document.querySelectorAll(".fade, .fade-up").forEach(el => observer.observe(el));
 
 /* =========================
    🧭 MAP
@@ -188,7 +192,7 @@ function renderUcapan(data){
   // 🔥 UPDATE JUMLAH UCAPAN
   judul.innerHTML = `Ucapan Tamu<br> (${data.length} Ucapan)`;
 
-  data.forEach(item=>{
+  data.slice().reverse().forEach(item=>{
     const div = document.createElement("div");
 
     let jamTanggal = "--";
@@ -222,7 +226,7 @@ function renderUcapan(data){
     list.appendChild(div);
   });
 
-  list.scrollTop = list.scrollHeight;
+  list.scrollTop = 0;
 }
 
 /* =========================
@@ -238,7 +242,7 @@ function loadUcapan(){
 }
 
 setTimeout(loadUcapan,500);
-setInterval(loadUcapan,5000);
+setInterval(loadUcapan,80000);
 
 /* =========================
    💍 SLIDER
@@ -334,10 +338,56 @@ function startAuto(){
 /* =========================
    💸 COPY REK
 ========================== */
-window.copyRek = function(){
-  const rek = document.getElementById("rek").innerText;
-  navigator.clipboard.writeText(rek);
-  alert("Nomor rekening berhasil disalin 💸");
-}
 
 });
+
+
+/* =========================
+   💸 COPY REK GLOBAL
+========================== */
+function copyRek(nomor) {
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(nomor)
+      .then(() => showToast("Nomor rekening berhasil disalin 💛"))
+      .catch(() => fallbackCopy(nomor));
+  } else {
+    fallbackCopy(nomor);
+  }
+}
+
+function fallbackCopy(text) {
+  const input = document.createElement("input");
+  input.value = text;
+  document.body.appendChild(input);
+
+  input.select();
+  input.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+  document.body.removeChild(input);
+
+  showToast("Nomor rekening berhasil disalin 💛");
+}
+
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.innerText = message;
+
+  toast.style.position = "fixed";
+  toast.style.bottom = "30px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
+  toast.style.background = "#D4AF37";
+  toast.style.color = "#000";
+  toast.style.padding = "10px 20px";
+  toast.style.borderRadius = "10px";
+  toast.style.fontSize = "13px";
+  toast.style.zIndex = "9999";
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 2000);
+}
+
+

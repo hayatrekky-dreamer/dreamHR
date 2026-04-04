@@ -47,6 +47,14 @@ body {
   overflow: hidden;
 }
 
+.guest-section {
+  margin-top: 15px;
+}
+
+.guest-section p {
+  margin-bottom: 10px;
+}
+
 .sparkle {
   position: absolute;
   width: 6px;
@@ -78,9 +86,27 @@ body {
   66% { background-position: 0% 50%, 100% 50%, 100% 50%; }
 }
 
+.sparkle-soft {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(212,175,55,0.3), transparent),
+    radial-gradient(1px 1px at 80px 60px, rgba(255,255,255,0.2), transparent);
+
+  animation: sparkleMove 30s linear infinite;
+}
+
+@keyframes sparkleMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100px); }
+}
+
 .floating-particles {
   position: absolute;
   inset: 0;
+  pointer-events: none; /* 🔥 INI WAJIB */
   background-image: 
     radial-gradient(2px 2px at 20px 30px, #f5e6c8, transparent),
     radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
@@ -227,7 +253,7 @@ position: relative;
   font-size: 23px;
   font-weight: 700;
   margin: 0px 0;
-  text-shadow: 0 4px 20px rgba(212,175,55,0.3);
+  text-shadow: 0 0 10px rgba(212,175,55,0.4);
 }
 
 .luxury-countdown {
@@ -279,6 +305,11 @@ position: relative;
   transition: all 0.3s ease;
 }
 
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
 .cta-button {
   margin-top: 25px;
   padding: 14px 28px;
@@ -301,6 +332,12 @@ position: relative;
 
 .cta-button:hover {
   background: rgba(255,255,255,0.2);
+}
+
+button {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
 }
 
 body {
@@ -352,7 +389,7 @@ body {
   bottom: 30px; /* sedikit naik biar balance */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
   display: flex;
   align-items: center;
@@ -370,6 +407,7 @@ body {
 
 .hero {
   position: relative;
+  overflow: hidden;
   text-align: center;
   margin-bottom: 100px;
 
@@ -381,6 +419,7 @@ body {
   position: relative;
   padding: 60px 20px;
   text-align: center;
+  
 
   background: 
     linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
@@ -396,9 +435,17 @@ body {
   }
 
 .arab {
-  font-size: 30px;
+  font-size: 40px;
   font-family: 'Amiri', serif;
   margin-bottom: 10px;
+}
+
+/* DIVIDER */
+.divider {
+  margin: 25px 0;
+  font-size: 18px;
+  color: #D4AF37;
+  letter-spacing: 5px;
 }
 
   .hero {
@@ -465,7 +512,9 @@ body {
 
 /* EVENT SECTION */
 .event {
-  background: rgba(255,255,255,0.05);
+  background: 
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
+    url('assets/event.jpg') center/cover no-repeat;
   backdrop-filter: blur(20px);
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.1);
@@ -484,8 +533,8 @@ body {
 }
 
 .event-date h3 {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 2px;
   color: #FFD700;
 }
 
@@ -523,7 +572,10 @@ body {
 
 /* STORY SECTION */
 .story {
-  background: rgba(255,255,255,0.05);
+ 
+  background: 
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
+    url('assets/story.jpg') center/cover no-repeat;
   backdrop-filter: blur(20px);
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.1);
@@ -657,7 +709,7 @@ body {
   }
 
   .mempelai-info h3 {
-    font-size: 26px;
+    font-size: 18px;
   }
 
   .subtitle {
@@ -713,6 +765,47 @@ body {
 .mempelai-slider .mempelai-info {
   opacity: 1 !important;
   transform: translateX(0) !important;
+}
+
+/* 💍 KHUSUS MEMPELAI PRIA */
+.slide.pria .mempelai-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.slide.pria .photo-frame {
+  box-shadow: 0 40px 80px rgba(212,175,55,0.3);
+  transform: rotate(1deg);
+}
+
+.slide.pria.active {
+  transform: scale(1) translateX(-10px);
+}
+
+/* biar text tetap rata kanan */
+.slide.pria .mempelai-info {
+  text-align: right;
+  animation: fadeInRight 1s ease;
+}
+
+/* icon juga ikut kanan */
+.slide.pria .detail p {
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px){
+  .slide.pria .mempelai-container {
+    flex-direction: column;
+  }
+
+  .slide.pria .mempelai-info {
+    text-align: center;
+  }
+
+  .slide.pria .detail p {
+    justify-content: center;
+  }
 }
 
 .photo-frame {
@@ -807,7 +900,7 @@ body {
 
 .mempelai-info h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 42px;
+  font-size: 18px;
   background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -816,7 +909,7 @@ body {
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 12px;
   font-style: italic;
   color: rgba(255,255,255,0.9);
   margin-bottom: 30px;
@@ -835,13 +928,16 @@ body {
   margin: 5px 0;
   color: rgba(255,255,255,0.85);
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start; /* biar teks panjang rapi */
+  gap: 10px;
 }
 
 .detail i {
-  width: 20px;
+  width: 22px;        /* 🔥 kunci utama */
+  min-width: 22px;    /* biar nggak berubah */
+  text-align: center;
   color: #D4AF37
+  
 }
 
   .gift-card {
@@ -864,6 +960,14 @@ body {
   letter-spacing: 3px;
   margin: 15px 0;
   color: #FFD700;
+}
+
+.count-box small {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.7;
 }
 
 .copy-btn {
@@ -1195,7 +1299,7 @@ body {
 
 /* ✨ ARABIC STYLE */
 .arab {
-  font-size: 30px;
+  font-size: 40px;
   font-family: 'Amiri', serif;
   margin-bottom: 5px; /* lebih rapet */
 }
@@ -1246,4 +1350,280 @@ body {
 img {
   max-width: 100%;
   height: auto;
+}
+
+
+/* =========================
+   💍 FIX MEMPELAI (ONLY FIX)
+========================= */
+
+.mempelai-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 40px !important;
+}
+
+/* FOTO */
+.photo-frame {
+  max-width: 300px !important;
+  width: 100% !important;
+  aspect-ratio: 3/4 !important;
+}
+
+/* PRIA → FOTO KANAN */
+.slide.pria .mempelai-container {
+  flex-direction: row-reverse !important;
+}
+
+/* TEXT PRIA */
+.slide.pria .mempelai-info {
+  text-align: right !important;
+}
+
+.slide.pria .detail p {
+  justify-content: flex-end !important;
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  .mempelai-container {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .mempelai-info {
+    text-align: left !important;
+  }
+
+  .detail p {
+    justify-content: left !important;
+  }
+}
+
+/* =========================
+   📱 Efek KHUSUS CEWEK
+========================= */
+/* cewek juga dapet efek */
+.slide:not(.pria) .photo-frame {
+  box-shadow: 0 40px 80px rgba(212,175,55,0.3);
+  transform: rotate(-1deg);
+}
+/* =========================
+   📱 MOBILE KHUSUS CEWEK
+========================= */
+@media (max-width: 768px){
+
+  /* CEWEK tetap samping */
+  .slide:not(.pria) .mempelai-container {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 15px !important;
+  }
+
+  /* kecilin foto biar muat */
+  .slide:not(.pria) .photo-frame {
+    max-width: 140px !important;
+  }
+
+  /* text biar rapi */
+  .slide:not(.pria) .mempelai-info {
+    text-align: left !important;
+  }
+
+}
+
+/* =========================
+   ✨ GLOW ELEGAN MEMPELAI
+========================= */
+
+/* nama utama */
+.mempelai-info h3 {
+  text-shadow:
+    0 0 10px rgba(212,175,55,0.4),
+    0 0 20px rgba(212,175,55,0.3),
+    0 0 40px rgba(212,175,55,0.2);
+}
+
+/* subtitle */
+.subtitle {
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.2),
+    0 0 12px rgba(212,175,55,0.2);
+}
+
+/* isi detail */
+.detail p {
+  text-shadow:
+    0 0 4px rgba(255,255,255,0.15);
+}
+
+.detail i {
+  text-shadow:
+    0 0 6px rgba(212,175,55,0.6),
+    0 0 12px rgba(212,175,55,0.4);
+}
+
+@keyframes glowPulse {
+  0%,100% {
+    text-shadow:
+      0 0 10px rgba(212,175,55,0.4),
+      0 0 20px rgba(212,175,55,0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(212,175,55,0.6),
+      0 0 40px rgba(212,175,55,0.4);
+  }
+}
+
+.mempelai-info h3 {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* =========================
+   💎 GIFT SECTION PREMIUM
+========================= */
+
+.gift-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.gift-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  background: linear-gradient(45deg, #D4AF37, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.gift-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+  max-width: 400px;
+  margin: 0 auto 30px;
+}
+
+.gift-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gift-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.bank-name {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.rekening {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.atas-nama {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.gift-card button {
+  background: linear-gradient(45deg, #D4AF37, #FFD700);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* delay biar berasa cinematic */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* versi gold */
+.glass-gold {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.ayat-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.ayat-box {
+  padding: 40px 25px;
+  text-align: center;
+  max-width: 750px;
+  margin: auto;
+  position: relative;
+  
+  box-shadow: 0 0 40px rgba(212,175,55,0.15);
+}
+
+.ayat-arab {
+  font-size: 26px;
+  line-height: 1.8;
+  font-family: 'Amiri', serif;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.ayat-arti {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ddd;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.ayat-sumber {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #D4AF37;
+  letter-spacing: 2px;
+}
+
+/* ORNAMEN ATAS */
+.ornament-top,
+.ornament-bottom {
+  width: 120px;
+  height: 2px;
+  margin: 20px auto;
+  background: linear-gradient(to right, transparent, #D4AF37, transparent);
+  opacity: 0.6;
 }

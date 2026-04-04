@@ -57,16 +57,31 @@
           </button>
 
           <div class="luxury-countdown">
-  <div class="count-box"><span id="days">00</span></div>
-  <div class="separator">:</div>
+ <div class="count-box">
+  <span id="days">00</span>
+  <small>Hari</small>
+</div>
 
-  <div class="count-box"><span id="hours">00</span></div>
-  <div class="separator">:</div>
+<div class="separator">:</div>
 
-  <div class="count-box"><span id="minutes">00</span></div>
-  <div class="separator">:</div>
+<div class="count-box">
+  <span id="hours">00</span>
+  <small>Jam</small>
+</div>
 
-  <div class="count-box"><span id="seconds">00</span></div>
+<div class="separator">:</div>
+
+<div class="count-box">
+  <span id="minutes">00</span>
+  <small>Menit</small>
+</div>
+
+<div class="separator">:</div>
+
+<div class="count-box">
+  <span id="seconds">00</span>
+  <small>Detik</small>
+</div>
 </div>
 
         </div>
@@ -78,7 +93,8 @@
 <!-- ✨ MAIN CONTENT -->
 <main id="content" style="display:none;">
   <!-- HERO -->
-  <section class="hero fade">
+  <section class="hero fade-up">
+    <div class="sparkle-soft"></div>
   <div class="hero-content">
 
     <h2 class="hero-title bottom">
@@ -90,26 +106,53 @@
     <div class="hero-text">
       <p class="arab">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
       <p class="hero-subtitle">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
-      <p>Tanpa mengurangi rasa hormat, Kami mengundang Anda untuk hadir di hari istimewa kami.</p>
+      <p>Tanpa mengurangi rasa hormat, Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari istimewa kami.</p>
     </div>
 
   </div>
 </section>
 
+<section class="ayat-section fade-up delay-2">
+
+  <div class="ornament-top"></div>
+
+  <div class="glass ayat-box">
+
+    <p class="ayat-arab">
+      وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا 
+      لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً
+    </p>
+
+    <p class="divider">❦</p>
+
+    <p class="ayat-arti">
+      “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu 
+      dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu 
+      rasa kasih dan sayang.”
+    </p>
+
+    <p class="ayat-sumber">
+      QS. Ar-Rum : 21
+    </p>
+
+  </div>
+
+  <div class="ornament-bottom"></div>
+
+</section>
+
   <!-- DATE & LOCATION -->
-  <section class="event fade">
-    <h3><i class="fas fa-calendar-alt"></i> In Sya Allah akan dilaksanakan pada:</h3>
+  <section class="event fade-up delay-3">
+    <h3><i class="glass fas fa-calendar-alt"></i> Insya Allah akan dilaksanakan pada:</h3>
     <div class="event-date">
       <h3>Jumat, 26 Juni 2026</h3>
-      <p>08:00 WIB - Akad Nikah</p>
-      <p>14:00 WIB - Resepsi</p>
+      <p>09:00 WIB - Akad Nikah</p>
+      <h3>Sabtu, 27 Juni 2026</h3>
+      <p>09:00 WIB - Resepsi</p>
     </div>
     
     <div class="map-container">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.221632934414!2d100.6853504!3d-0.8047585999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2b33006a87c2a3%3A0x797a804b397716ba!2sBidan%20Hazimah!5e1!3m2!1sid!2sid!4v1775017390903!5m2!1sid!2sid"
-        loading="lazy">
-      </iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d451.27770411477655!2d100.68503068418391!3d-0.8047586183059349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2b33006a87c2a3%3A0x797a804b397716ba!2sBidan%20Hazimah!5e1!3m2!1sid!2sid!4v1775317919963!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
       <a href="#" onclick="openNavigation()" class="map-btn luxury">
         <i class="fas fa-map-marker-alt"></i> Arah Navigasi
       </a>
@@ -117,26 +160,31 @@
   </section>
 
   <!-- LOVE STORY -->
-  <section class="story fade">
+  <section class="story fade-up delay-4">
     <h2><i class="fas fa-book-open"></i> Love Story</h2>
     <div class="timeline">
       <div class="timeline-item">
-        <span class="date">2024</span>
-        <p>Pertemuan pertama menjalani pertemanan</p>
+        <span class="date">✨2024</span>
+        <p>Semesta mempertemukan kami di waktu yang tak disangka—dalam suasana ringan yang penuh tawa dan cerita sederhana.
+Berawal dari obrolan santai tentang galon dan jajanan di CFD, percakapan kecil itu justru terasa begitu hangat dan menyenangkan.</p>
       </div>
       <div class="timeline-item">
-        <span class="date">2025</span>
-        <p>Mulai intens dalam mengenal satu sama lain</p>
+        <span class="date">🌷2025</span>
+        <p>Waktu menjahit jarak menjadi kedekatan yang tak lagi ingin dijeda.
+Langkah-langkah sederhana—berjalan, berbagi cerita, hingga “jajan bareng”—menjadi cara kami saling menemukan.
+Di antara tawa dan diam, tumbuh rasa yang pelan, namun menetap.</p>
       </div>
       <div class="timeline-item">
-        <span class="date">2026</span>
-        <p>Memutuskan untuk berkomitmen hidup bersama 💍</p>
+        <span class="date">💍2026</span>
+        <p>Perjalanan ini membawa kami pada satu keyakinan—bahwa kita adalah tujuan, bukan sekadar persinggahan.
+Kami memilih melangkah lebih jauh, menyatukan arah dalam satu janji yang sama.
+Dari pertemuan yang sederhana, kini kami saling menjadi rumah—tempat pulang yang selalu dipilih. 🤍</p>
       </div>
     </div>
   </section>
 
   <!-- 💍 MEMPELAI SLIDER -->
-<section class="mempelai-slider fade">
+<section class="mempelai-slider fade-up delay-5">
 
   <div class="slider-wrapper">
 
@@ -170,7 +218,7 @@
     </div>
 
     <!-- 🤵 PRIA -->
-    <div class="slide">
+    <div class="slide pria">
       <div class="mempelai-container">
 
         <div class="photo-frame">
@@ -203,25 +251,35 @@
 </section>
 
   <!-- GIFT - LUXURY VERSION -->
-<section class="gift fade luxury-section">
-  <div class="gift-container">
-    <div class="gift-card floating">
-      <div class="card-header">
-        <i class="fab fa-cc-bca"></i>
-        <h3>Bank Central Asia</h3>
-      </div>
-      <div class="card-body">
-        <div class="account-number" id="rek">1234 5678 9</div>
-<button class="copy-btn" onclick="copyRek()">Salin Rekening</button>
-        
-        <div class="account-name">a.n Hayatun Nufus</div>
-      </div>
+<section class="gift-section">
 
-      
-      <div class="card-footer">
-        <p>Doa restu Anda lebih berharga dari apapun ✨</p>
-      </div>
+  <h2 class="gift-title">Kirim Tanda Kasih</h2>
+  <p class="gift-subtitle">
+    Kehadiran dan doa restu Anda sudah menjadi hadiah terindah bagi kami.
+    Namun, jika ingin berbagi kebahagiaan, dapat melalui:
+  </p>
+
+  <div class="gift-list">
+
+    <!-- 💳 REKENING 1 -->
+    <div class="gift-card">
+      <div class="bank-name">Bank Central Asia</div>
+      <div class="rekening">1234567890</div>
+      <div class="atas-nama">a.n. Rekky Ramadhan</div>
+      <button class="btn-copy" onclick="copyRek('123')">Salin</button>
     </div>
+
+    <!-- 💳 REKENING 2 -->
+    <div class="gift-card">
+      <div class="bank-name">Bank Mandiri</div>
+      <div class="rekening">0987654321</div>
+      <div class="atas-nama">a.n. Hayatun Nufus</div>
+      <button class="btn-copy" onclick="copyRek('0987654321')">Salin</button>
+    </div>
+
+  </div>
+
+</section>
     
 
 
