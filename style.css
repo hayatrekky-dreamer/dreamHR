@@ -370,8 +370,14 @@ body {
 @media (max-width: 768px){
 
   .cover {
-    background: url('assets/hero.jpg') center/cover no-repeat;
+    background: url('assets/cover-mobile.jpg') center/cover no-repeat;
   }
+
+.arab {
+  font-size: 80px;
+  font-family: 'Amiri', serif;
+  margin-bottom: 10px;
+}
 
   .hero {
     min-height: 100vh;
@@ -1094,7 +1100,7 @@ body {
 
 /* ✨ ARABIC STYLE */
 .arab {
-  font-size: 0px;
+  font-size: 80px;
   font-family: 'Amiri', serif;
   margin-bottom: 10px;
 }
