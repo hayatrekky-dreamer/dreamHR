@@ -396,7 +396,7 @@ body {
   }
 
 .arab {
-  font-size: 40px;
+  font-size: 30px;
   font-family: 'Amiri', serif;
   margin-bottom: 10px;
 }
@@ -1195,7 +1195,7 @@ body {
 
 /* ✨ ARABIC STYLE */
 .arab {
-  font-size: 40px;
+  font-size: 30px;
   font-family: 'Amiri', serif;
   margin-bottom: 5px; /* lebih rapet */
 }
