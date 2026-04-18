@@ -18,14 +18,23 @@ html, body {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5a 100%);
   color: #fff;
   min-height: 100vh;
   position: relative;
+
+  /* default: KOSONG dulu */
+  background: #0f0f23;
+
+  transition: background 1s ease;
+}
+
+/* setelah dibuka */
+body.opened {
   background: url('assets/bg-web.webp') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed; /* efek premium */
+  background-attachment: fixed;
 }
+
 
 @font-face {
   font-family: 'Stay Classy';
@@ -55,6 +64,12 @@ body {
     url('assets/cover.webp') center/cover no-repeat;
 
   overflow: hidden;
+transition: opacity 1s ease, visibility 1s ease;
+}
+
+.cover.hide {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .guest-section {
@@ -1152,12 +1167,12 @@ body {
 
 .btn-copy {
   background: linear-gradient(45deg, #FFD700, #FFEA00);
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: bold;
 
   box-shadow:
     0 5px 20px rgba(255,215,0,0.4),
-    inset 0 1px 3px rgba(255,255,255,0.5);
+    inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .btn-copy:hover {
@@ -2123,3 +2138,8 @@ section {
   to { transform: translateX(0); }
 }
 
+@media (max-width: 768px) {
+  body.opened {
+    background-attachment: scroll;
+  }
+}

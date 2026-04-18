@@ -27,54 +27,53 @@ window.openInvitation = function () {
   const content = document.getElementById("content");
   const hero = document.querySelector(".hero");
 
-  // 🎵 (optional safety)
   const music = document.getElementById("music");
   const btn = document.getElementById("musicBtn");
   let isPlaying = false;
 
-  // buka cover
-  cover.classList.add("open");
+  // fade cover
+  cover.classList.add("hide");
 
+  // 🎬 delay biar smooth
   setTimeout(() => {
 
-    // tampilkan content
+    // ✅ AKTIFKAN BACKGROUND PREMIUM
+    document.body.classList.add("opened");
+
+    // tampilkan konten
     cover.style.display = "none";
     content.style.display = "block";
 
-    // reset posisi scroll
+    // reset scroll
     window.scrollTo({ top: 0, behavior: "instant" });
 
-    // 🎬 TIMELINE CINEMATIC
+    // 🎬 GSAP TIMELINE
     const tl = gsap.timeline();
 
-    // 🌄 background fade
     tl.fromTo(".bg-anim",
       { opacity: 0 },
       { opacity: 1, duration: 2 }
     )
 
-    // 🌫️ kabut muncul pelan
     .fromTo(".fog",
       { opacity: 0 },
       { opacity: 0.5, duration: 3 },
       "-=1.5"
     )
 
-    // 🌳 pohon muncul
     .fromTo(".pohon",
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 2 },
       "-=2"
     )
 
-    // 🏡 rumah zoom masuk (fokus utama)
     .fromTo(".rumah-anim",
       { scale: 0.6, opacity: 0, y: 50 },
       { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "power3.out" },
       "-=1.5"
     );
 
-    // 🌳 pohon goyang halus (AFTER muncul)
+    // 🌳 animasi loop
     gsap.to(".pohon", {
       rotate: 2,
       duration: 3,
@@ -84,7 +83,7 @@ window.openInvitation = function () {
       delay: 2.5
     });
 
-    // 🌫️ kabut jalan (loop)
+    // 🌫️ kabut loop
     gsap.to(".fog-1", {
       x: "-50%",
       duration: 60,
@@ -99,7 +98,7 @@ window.openInvitation = function () {
       ease: "linear"
     });
 
-    // 🦋 kupu (optional)
+    // 🦋 kupu optional
     if (document.querySelector(".kupu")) {
       gsap.to(".kupu", {
         x: 80,
@@ -120,9 +119,7 @@ window.openInvitation = function () {
       });
     }
 
-    
-
-    // 🎵 MUSIC (safe play)
+    // 🎵 MUSIC
     if (music) {
       music.play().then(() => {
         isPlaying = true;
@@ -130,14 +127,14 @@ window.openInvitation = function () {
       }).catch(() => {});
     }
 
-    // ⏳ AUTO SCROLL (lebih cinematic)
+    // ⏳ AUTO SCROLL
     setTimeout(() => {
       if (hero) {
         hero.scrollIntoView({ behavior: "smooth" });
       }
     }, 6000);
 
-  }, 1000);
+  }, 800); // sedikit lebih cepat biar responsif
 };
 /* =========================
    👤 NAMA TAMU
