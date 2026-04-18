@@ -409,8 +409,8 @@ body {
   position: relative;
   overflow: hidden;
   text-align: center;
-  margin-bottom: 100px;
-
+  margin-bottom: 30px;
+  margin-top: 100px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -575,7 +575,7 @@ body {
  
   background: 
     linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
-    url('assets/story.jpg') center/cover no-repeat;
+    url('assets/story1.jpg') center/cover no-repeat;
   backdrop-filter: blur(20px);
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.1);
@@ -728,6 +728,7 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
+  border-radius: 30px;
 }
 
 .slider-wrapper {
@@ -900,12 +901,13 @@ body {
 
 .mempelai-info h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 24px;
   background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 15px;
   text-shadow: 0 4px 20px rgba(212,175,55,0.3);
+  letter-spacing: 3px;
 }
 
 .subtitle {
@@ -1627,3 +1629,227 @@ img {
   background: linear-gradient(to right, transparent, #D4AF37, transparent);
   opacity: 0.6;
 }
+
+/* =========================
+   ✨ SCROLL ANIMATION
+========================= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================
+   ✨ Footer
+========================= */
+.footer {
+  text-align: center;
+  padding: 15px 15px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+
+.footer p {
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0); /* 🔥 FIX */
+
+  width: 90%;
+  max-width: 400px;
+
+  text-align: center;
+  color: rgba(190, 146, 2, 0.81);
+  font-size: 14px;
+  line-height: 1.6;
+
+  animation: smoothFadeUp 1s ease forwards;
+  animation-delay: 0.5s;
+    backdrop-filter: blur(6px);
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+
+/* biar nggak ketutup box */
+.envelope {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===================================
+   🎬 ANIMASI BACKGROUND (CINEMATIC)
+=================================== */
+
+/* container animasi */
+.opening-animation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+}
+
+.anim-scene {
+   position: relative;
+  width: 100%;
+  height: 100vh; /* 🔥 full layar */
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+section.next-section {
+  margin-top: 80px;
+}
+section {
+  scroll-margin-top: 80px;
+}
+
+.next-section {
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+/* background */
+.bg-anim {
+ position: absolute;
+  inset: 0;
+  width: 100%;
+  
+  z-index: 1;
+  opacity: 0;
+  max-width: none;
+   background: url('assets/bg.png') center/cover no-repeat;
+}
+
+.anim-scene {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  background: #0f172a; /* anti flicker */
+}
+
+.bg-anim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+}
+
+/* rumah */
+.rumah-anim {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  z-index: 2;
+  opacity: 0;
+}
+
+/* pohon kiri */
+.pohon.kiri {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 150px;
+  z-index: 2;
+  transform-origin: bottom center;
+}
+
+/* pohon kanan */
+.pohon.kanan {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 170px;
+  z-index: 2;
+  transform-origin: bottom center;
+}
+
+.pohon.story {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 150px;
+  z-index: 2;
+  
+}
+
+/* kupu-kupu */
+.kupu {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 60px;
+  z-index: 4;
+  opacity: 0.8;
+}
+
+.kupu2 {
+  position: absolute;
+  top: 40%;
+  right: 10%;
+  width: 60px;
+  z-index: 4;
+  opacity: 0.8;
+}
+
+.kupu3 {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  width: 60px;
+  z-index: 4;
+  opacity: 0.8;
+}
+
+.pohon, .rumah-anim {
+  position: absolute;
+  display: block;
+}
+
+.fog {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  background: url('assets/kabut.png') repeat-x;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fog-1 {
+  animation: fogMove 60s linear infinite;
+}
+
+.fog-2 {
+  animation: fogMoveReverse 80s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes fogMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes fogMoveReverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+

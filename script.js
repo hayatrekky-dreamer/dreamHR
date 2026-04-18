@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+const animSection = document.querySelector(".opening-animation");
+
 /* =========================
    🎵 MUSIC
 ========================== */
@@ -20,25 +22,123 @@ window.toggleMusic = function(){
 /* =========================
    💌 OPEN INVITATION
 ========================== */
-window.openInvitation = function(){
+window.openInvitation = function () {
   const cover = document.querySelector(".cover");
   const content = document.getElementById("content");
+  const hero = document.querySelector(".hero");
 
+  // 🎵 (optional safety)
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+  let isPlaying = false;
+
+  // buka cover
   cover.classList.add("open");
 
   setTimeout(() => {
+
+    // tampilkan content
     cover.style.display = "none";
     content.style.display = "block";
 
-    music.play().then(()=> {
-      isPlaying = true;
-      btn.innerText = "🔊";
-    }).catch(()=>{});
+    // reset posisi scroll
+    window.scrollTo({ top: 0, behavior: "instant" });
 
-    window.scrollTo({top:0, behavior:"smooth"});
-  }, 2600);
-}
+    // 🎬 TIMELINE CINEMATIC
+    const tl = gsap.timeline();
 
+    // 🌄 background fade
+    tl.fromTo(".bg-anim",
+      { opacity: 0 },
+      { opacity: 1, duration: 2 }
+    )
+
+    // 🌫️ kabut muncul pelan
+    .fromTo(".fog",
+      { opacity: 0 },
+      { opacity: 0.5, duration: 3 },
+      "-=1.5"
+    )
+
+    // 🌳 pohon muncul
+    .fromTo(".pohon",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 2 },
+      "-=2"
+    )
+
+    // 🏡 rumah zoom masuk (fokus utama)
+    .fromTo(".rumah-anim",
+      { scale: 0.6, opacity: 0, y: 50 },
+      { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "power3.out" },
+      "-=1.5"
+    );
+
+    // 🌳 pohon goyang halus (AFTER muncul)
+    gsap.to(".pohon", {
+      rotate: 2,
+      duration: 3,
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut",
+      delay: 2.5
+    });
+
+    // 🌫️ kabut jalan (loop)
+    gsap.to(".fog-1", {
+      x: "-50%",
+      duration: 60,
+      repeat: -1,
+      ease: "linear"
+    });
+
+    gsap.to(".fog-2", {
+      x: "50%",
+      duration: 80,
+      repeat: -1,
+      ease: "linear"
+    });
+
+    // 🦋 kupu (optional)
+    if (document.querySelector(".kupu")) {
+      gsap.to(".kupu", {
+        x: 80,
+        y: -40,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".kupu2", {
+        x: -100,
+        y: 30,
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.OutIn"
+      });
+    }
+
+    
+
+    // 🎵 MUSIC (safe play)
+    if (music) {
+      music.play().then(() => {
+        isPlaying = true;
+        if (btn) btn.innerText = "🔊";
+      }).catch(() => {});
+    }
+
+    // ⏳ AUTO SCROLL (lebih cinematic)
+    setTimeout(() => {
+      if (hero) {
+        hero.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 6000);
+
+  }, 1000);
+};
 /* =========================
    👤 NAMA TAMU
 ========================== */
@@ -389,5 +489,25 @@ function showToast(message) {
 
   setTimeout(() => toast.remove(), 2000);
 }
+
+/* =========================
+   ✨ SCROLL REVEAL
+========================= */
+const elements = document.querySelectorAll(".fade-up");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    } else {
+      entry.target.classList.remove("show"); // 🔥 biar bisa muncul lagi
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+elements.forEach(el => observer.observe(el));
+
 
 
