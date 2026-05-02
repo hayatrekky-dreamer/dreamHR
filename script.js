@@ -1,22 +1,29 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-const animSection = document.querySelector(".opening-animation");
-
 /* =========================
-   🎵 MUSIC
+   🎵 MUSIC (FIX CLEAN)
 ========================== */
-const music = document.getElementById("bgMusic");
+const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
 let isPlaying = false;
 
 window.toggleMusic = function(){
+  if(!music) return;
+
   if(isPlaying){
     music.pause();
     btn.innerText = "🔇";
   } else {
-    music.play().then(()=> btn.innerText = "🔊");
+    music.play().then(()=> {
+      btn.innerText = "🔊";
+    }).catch(()=>{});
   }
   isPlaying = !isPlaying;
+}
+
+// 👉 CONNECT BUTTON
+if(btn){
+  btn.addEventListener("click", toggleMusic);
 }
 
 /* =========================
@@ -26,64 +33,52 @@ window.openInvitation = function () {
   const cover = document.querySelector(".cover");
   const content = document.getElementById("content");
   const hero = document.querySelector(".hero");
+  const bg = document.querySelector(".bg-fixed");
 
-  const music = document.getElementById("music");
-  const btn = document.getElementById("musicBtn");
-  let isPlaying = false;
-
-  // fade cover
+if(bg){
+  bg.style.backgroundImage = "url('assets/bg-web.webp')";
+}
   cover.classList.add("hide");
 
-  // 🎬 delay biar smooth
   setTimeout(() => {
 
-    // ✅ AKTIFKAN BACKGROUND PREMIUM
     document.body.classList.add("opened");
-
-    // tampilkan konten
     cover.style.display = "none";
     content.style.display = "block";
 
-    // reset scroll
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0 });
 
-    // 🎬 GSAP TIMELINE
+    // 🎬 GSAP ANIMATION
     const tl = gsap.timeline();
 
     tl.fromTo(".bg-anim",
       { opacity: 0 },
       { opacity: 1, duration: 2 }
     )
-
     .fromTo(".fog",
       { opacity: 0 },
       { opacity: 0.5, duration: 3 },
       "-=1.5"
     )
-
     .fromTo(".pohon",
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 2 },
       "-=2"
     )
-
     .fromTo(".rumah-anim",
       { scale: 0.6, opacity: 0, y: 50 },
-      { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "power3.out" },
+      { scale: 1, opacity: 1, y: 0, duration: 1.5 },
       "-=1.5"
     );
 
-    // 🌳 animasi loop
+    // 🌳 LOOP
     gsap.to(".pohon", {
       rotate: 2,
       duration: 3,
       yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-      delay: 2.5
+      repeat: -1
     });
 
-    // 🌫️ kabut loop
     gsap.to(".fog-1", {
       x: "-50%",
       duration: 60,
@@ -98,44 +93,23 @@ window.openInvitation = function () {
       ease: "linear"
     });
 
-    // 🦋 kupu optional
-    if (document.querySelector(".kupu")) {
-      gsap.to(".kupu", {
-        x: 80,
-        y: -40,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      gsap.to(".kupu2", {
-        x: -100,
-        y: 30,
-        duration: 10,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.OutIn"
-      });
-    }
-
-    // 🎵 MUSIC
+    // 🎵 AUTO PLAY (LEGAL karena user klik)
     if (music) {
+      music.volume = 0.5;
       music.play().then(() => {
         isPlaying = true;
-        if (btn) btn.innerText = "🔊";
-      }).catch(() => {});
+        btn.innerText = "🔊";
+      }).catch(()=>{});
     }
 
-    // ⏳ AUTO SCROLL
+    // AUTO SCROLL
     setTimeout(() => {
-      if (hero) {
-        hero.scrollIntoView({ behavior: "smooth" });
-      }
+      hero?.scrollIntoView({ behavior: "smooth" });
     }, 6000);
 
-  }, 800); // sedikit lebih cepat biar responsif
+  }, 800);
 };
+
 /* =========================
    👤 NAMA TAMU
 ========================== */
@@ -159,7 +133,7 @@ if(target){
 /* =========================
    ✨ SPARKLE
 ========================== */
-function createSparkle(){
+setInterval(()=>{
   const container = document.getElementById("sparkle-container");
   if(!container) return;
 
@@ -171,35 +145,42 @@ function createSparkle(){
 
   container.appendChild(el);
   setTimeout(()=> el.remove(), 2000);
-}
-setInterval(createSparkle, 500);
+}, 500);
 
 /* =========================
    ⏳ COUNTDOWN
 ========================== */
 const targetDate = new Date("June 26, 2026 09:00:00").getTime();
 
-function format(n){
-  return n < 10 ? "0" + n : n;
-}
-
-setInterval(()=>{
+const countdown = setInterval(()=>{
   const now = Date.now();
-  const gap = targetDate - now;
+  let gap = targetDate - now;
+
+  // 🔥 STOP kalau sudah lewat
+ if(gap <= 0){
+  clearInterval(countdown);
+
+  document.querySelector(".countdown").innerHTML = 
+    "✨ Acara Sedang Berlangsung / Telah Selesai";
+  
+  return;
+}
 
   const d = Math.floor(gap/(1000*60*60*24));
   const h = Math.floor((gap/(1000*60*60))%24);
   const m = Math.floor((gap/(1000*60))%60);
   const s = Math.floor((gap/1000)%60);
 
+  const format = n => n < 10 ? "0"+n : n;
+
   document.getElementById("days").innerText = format(d);
   document.getElementById("hours").innerText = format(h);
   document.getElementById("minutes").innerText = format(m);
   document.getElementById("seconds").innerText = format(s);
-},1000);
 
+},1000);
 /* =========================
-   ✨ SCROLL ANIMATION
+   ✨ SCROLL ANIMATION (FIX SINGLE)
 ========================== */
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -236,10 +217,7 @@ if(form){
     fetch(sheetURL,{method:"POST",mode:"no-cors",body:data})
     .then(()=>{
       status.innerText = "Terkirim ❤️";
-
-      tambahChatBaru(form.nama.value, form.ucapan.value);
       form.reset();
-
       setTimeout(loadUcapan,2000);
     })
     .catch(()=> status.innerText = "Gagal 😢");
@@ -247,93 +225,29 @@ if(form){
 }
 
 /* =========================
-   ➕ TAMBAH CHAT BARU (REALTIME)
-========================== */
-function tambahChatBaru(nama, ucapan){
-  const list = document.getElementById("listUcapan");
-
-  const now = new Date();
-
-  const jam = now.toLocaleTimeString("id-ID", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  const tanggal = now.toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  });
-
-  const div = document.createElement("div");
-  div.className = "chat-bubble chat-right";
-  div.innerHTML = `
-    <div class="chat-name">${nama}</div>
-    <div class="chat-text">${ucapan}</div>
-    <div class="chat-time">${tanggal} • ${jam}</div>
-  `;
-
-  list.appendChild(div);
-  list.scrollTop = list.scrollHeight;
-}
-
-/* =========================
-   📥 RENDER DATA DARI SHEET
-========================== */
-function renderUcapan(data){
-  const list = document.getElementById("listUcapan");
-  const judul = document.getElementById("judulUcapan");
-
-  list.innerHTML = "";
-
-  // 🔥 UPDATE JUMLAH UCAPAN
-  judul.innerHTML = `Ucapan Tamu<br> (${data.length} Ucapan)`;
-
-  data.slice().reverse().forEach(item=>{
-    const div = document.createElement("div");
-
-    let jamTanggal = "--";
-
-    if(item.waktu){
-      const waktu = new Date(item.waktu);
-
-      if(!isNaN(waktu)){
-        const jam = waktu.toLocaleTimeString("id-ID", {
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-
-        const tanggal = waktu.toLocaleDateString("id-ID", {
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        });
-
-        jamTanggal = `${tanggal} • ${jam}`;
-      }
-    }
-
-    div.className="chat-bubble chat-left";
-    div.innerHTML=`
-      <div class="chat-name">${item.nama}</div>
-      <div class="chat-text">${item.ucapan}</div>
-      <div class="chat-time">${jamTanggal}</div>
-    `;
-
-    list.appendChild(div);
-  });
-
-  list.scrollTop = 0;
-}
-
-/* =========================
-   🔄 LOAD DATA
+   📥 LOAD UCAPAN
 ========================== */
 function loadUcapan(){
   fetch(sheetURL)
     .then(res=>res.json())
     .then(data=>{
-      if(data) renderUcapan(data);
+      const list = document.getElementById("listUcapan");
+      const judul = document.getElementById("judulUcapan");
+
+      if(!data || !list) return;
+
+      list.innerHTML = "";
+      judul.innerHTML = `Ucapan Tamu<br> (${data.length} Ucapan)`;
+
+      data.reverse().forEach(item=>{
+        const div = document.createElement("div");
+        div.className="chat-bubble chat-left";
+        div.innerHTML=`
+          <div class="chat-name">${item.nama}</div>
+          <div class="chat-text">${item.ucapan}</div>
+        `;
+        list.appendChild(div);
+      });
     })
     .catch(()=>{});
 }
@@ -342,169 +256,248 @@ setTimeout(loadUcapan,500);
 setInterval(loadUcapan,80000);
 
 /* =========================
-   💍 SLIDER
+   💍 SLIDER (CLEAN)
 ========================== */
+/* =========================
+   💍 SLIDER PREMIUM + AUTO PAUSE
+========================= */
+
 const slider = document.querySelector(".slider-wrapper");
+const slides = document.querySelectorAll(".slide");
+
 let currentIndex = 0;
+let autoSlide = null;
 let startX = 0;
 let isDown = false;
+let isSwiping = false;
+let isVisible = true;
 
+/* =========================
+   🎯 UPDATE SLIDE
+========================= */
 function updateSlide(){
-  const slides = document.querySelectorAll(".slide");
-
   slides.forEach((s,i)=>{
-    s.classList.toggle("active", i===currentIndex);
+    s.classList.toggle("active", i === currentIndex);
   });
 
-  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  if(slider){
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
 }
 
+/* =========================
+   ▶️ START AUTO SLIDE
+========================= */
+function startAutoSlide(){
+  if(autoSlide || !isVisible) return;
+
+  autoSlide = setInterval(()=>{
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlide();
+  }, 10000); // 👉 25 detik (ubah kalau mau)
+}
+
+/* =========================
+   ⏸️ STOP AUTO SLIDE
+========================= */
+function stopAutoSlide(){
+  clearInterval(autoSlide);
+  autoSlide = null;
+}
+
+/* =========================
+   📱 TOUCH (HP)
+========================= */
 if(slider){
 
+  slider.addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX;
+    isSwiping = false;
+    stopAutoSlide(); // pause saat disentuh
+  });
+
+  slider.addEventListener("touchmove", ()=>{
+    isSwiping = true;
+  });
+
+  slider.addEventListener("touchend", e=>{
+    if(!isSwiping){
+      startAutoSlide();
+      return;
+    }
+
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if(diff > 50){
+      currentIndex = (currentIndex + 1) % slides.length;
+    } else if(diff < -50){
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    }
+
+    updateSlide();
+    startAutoSlide();
+  });
+
+/* =========================
+   🖱️ DRAG (DESKTOP)
+========================= */
   slider.addEventListener("mousedown", e=>{
     isDown = true;
-    startX = e.pageX;
+    startX = e.clientX;
+    stopAutoSlide();
   });
 
   slider.addEventListener("mouseup", e=>{
     if(!isDown) return;
-    isDown=false;
+    isDown = false;
 
-    let diff = startX - e.pageX;
+    let diff = startX - e.clientX;
 
-    if(diff>50) currentIndex++;
-    if(diff<-50) currentIndex--;
-
-    currentIndex = Math.max(0, Math.min(currentIndex, 1));
-    updateSlide();
-  });
-
-  slider.addEventListener("mousemove", e=>{
-    if(!isDown) return;
-    let diff = startX - e.pageX;
-    slider.style.transform = `translateX(calc(-${currentIndex * 100}% - ${diff}px))`;
-  });
-
-  slider.addEventListener("touchstart", e=>{
-    startX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchend", e=>{
-    let diff = startX - e.changedTouches[0].clientX;
-
-    if(diff>50) currentIndex++;
-    if(diff<-50) currentIndex--;
-
-    currentIndex = Math.max(0, Math.min(currentIndex, 1));
-    updateSlide();
-  });
-
-  updateSlide();
-}
-
-/* =========================
-   🔁 AUTO SLIDE
-========================== */
-let autoSlide = setInterval(() => {
-  currentIndex++;
-  if(currentIndex > 1){
-    currentIndex = 0;
-  }
-  updateSlide();
-}, 4000);
-
-slider.addEventListener("mouseenter", () => clearInterval(autoSlide));
-slider.addEventListener("mousedown", () => clearInterval(autoSlide));
-slider.addEventListener("touchstart", () => clearInterval(autoSlide));
-
-slider.addEventListener("mouseleave", startAuto);
-slider.addEventListener("mouseup", startAuto);
-slider.addEventListener("touchend", startAuto);
-
-function startAuto(){
-  clearInterval(autoSlide);
-  autoSlide = setInterval(() => {
-    currentIndex++;
-    if(currentIndex > 1){
-      currentIndex = 0;
+    if(diff > 50){
+      currentIndex = (currentIndex + 1) % slides.length;
+    } else if(diff < -50){
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     }
+
     updateSlide();
-  }, 4000);
+    startAutoSlide();
+  });
+
 }
 
 /* =========================
-   💸 COPY REK
-========================== */
-
-});
-
-
-/* =========================
-   💸 COPY REK GLOBAL
-========================== */
-function copyRek(nomor) {
-
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(nomor)
-      .then(() => showToast("Nomor rekening berhasil disalin 💛"))
-      .catch(() => fallbackCopy(nomor));
-  } else {
-    fallbackCopy(nomor);
-  }
-}
-
-function fallbackCopy(text) {
-  const input = document.createElement("input");
-  input.value = text;
-  document.body.appendChild(input);
-
-  input.select();
-  input.setSelectionRange(0, 99999);
-
-  document.execCommand("copy");
-  document.body.removeChild(input);
-
-  showToast("Nomor rekening berhasil disalin 💛");
-}
-
-function showToast(message) {
-  const toast = document.createElement("div");
-  toast.innerText = message;
-
-  toast.style.position = "fixed";
-  toast.style.bottom = "30px";
-  toast.style.left = "50%";
-  toast.style.transform = "translateX(-50%)";
-  toast.style.background = "#D4AF37";
-  toast.style.color = "#000";
-  toast.style.padding = "10px 20px";
-  toast.style.borderRadius = "10px";
-  toast.style.fontSize = "13px";
-  toast.style.zIndex = "9999";
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => toast.remove(), 2000);
-}
-
-/* =========================
-   ✨ SCROLL REVEAL
+   👁️ AUTO PAUSE (HEMAT PERFORMA)
 ========================= */
-const elements = document.querySelectorAll(".fade-up");
+const sliderSection = document.querySelector(".mempelai-slider");
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    } else {
-      entry.target.classList.remove("show"); // 🔥 biar bisa muncul lagi
-    }
-  });
-}, {
-  threshold: 0.2
+if(sliderSection){
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        isVisible = true;
+        startAutoSlide();
+      } else {
+        isVisible = false;
+        stopAutoSlide();
+      }
+    });
+  }, { threshold: 0.3 }); // muncul 30% baru aktif
+
+  observer.observe(sliderSection);
+}
+
+/* =========================
+   🚀 INIT
+========================= */
+updateSlide();
+startAutoSlide();
+
 });
 
-elements.forEach(el => observer.observe(el));
+document.addEventListener("DOMContentLoaded", function(){
+
+/* =========================
+   🖼️ GALLERY SWIPE FULL
+========================= */
+
+const modal = document.getElementById("galleryModal");
+const modalImg = document.getElementById("modalImg");
+const closeBtn = document.getElementById("closeModal");
+const images = document.querySelectorAll(".gallery-img");
+
+let currentIndex = 0;
+
+// OPEN
+images.forEach((img, index) => {
+  img.addEventListener("click", () => {
+    modal.classList.add("active");
+    currentIndex = index;
+    showImage();
+  });
+});
+
+// SHOW IMAGE
+function showImage(){
+  modalImg.src = images[currentIndex].src;
+}
+
+// NEXT / PREV
+function next(){
+  currentIndex = (currentIndex + 1) % images.length;
+  showImage();
+}
+
+function prev(){
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  showImage();
+}
+
+// CLOSE BUTTON
+if(closeBtn){
+  closeBtn.addEventListener("click", () => {
+    modal.classList.remove("active");
+  });
+}
+
+// CLICK OUTSIDE (lebih aman)
+modal.addEventListener("click", (e) => {
+  if(e.target === modal){
+    modal.classList.remove("active");
+  }
+});
 
 
+/* =========================
+   📱 SWIPE (HP)
+========================= */
 
+let startX = 0;
+let endX = 0;
+
+modalImg.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+modalImg.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+
+  if(startX - endX > 50){
+    next();
+  } else if(endX - startX > 50){
+    prev();
+  }
+});
+
+
+/* =========================
+   🖱️ DRAG (DESKTOP)
+========================= */
+
+let isDragging = false;
+
+modalImg.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.clientX;
+});
+
+modalImg.addEventListener("mouseup", (e) => {
+  if(!isDragging) return;
+
+  endX = e.clientX;
+
+  if(startX - endX > 50){
+    next();
+  } else if(endX - startX > 50){
+    prev();
+  }
+
+  isDragging = false;
+});
+
+// tambahan biar smooth
+modalImg.addEventListener("mouseleave", () => {
+  isDragging = false;
+});
+
+});
