@@ -501,3 +501,18 @@ modalImg.addEventListener("mouseleave", () => {
 });
 
 });
+
+
+document.querySelectorAll(".btn-copy").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const no = btn.dataset.rek;
+
+    navigator.clipboard.writeText(no).then(()=>{
+      btn.innerText = "Tersalin ✔️";
+
+      setTimeout(()=>{
+        btn.innerText = "Salin Nomor";
+      }, 2000);
+    });
+  });
+});

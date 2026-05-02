@@ -2138,6 +2138,14 @@ section {
   opacity: 0.3;
 }
 
+/* 🔥 MATIKAN INTERAKSI DI LAYER ANIMASI */
+#particles-canvas,
+#sparkle-container,
+.fog,
+.bg-anim {
+  pointer-events: none !important;
+}
+
 @keyframes fogMove {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
