@@ -425,6 +425,8 @@ body {
   margin: 0 auto;
 }
 
+
+
 .hero-title.bottom {
   position: absolute;
   bottom: 30px; /* sedikit naik biar balance */
@@ -1972,7 +1974,7 @@ animation: glowAyat 4s ease-in-out infinite alternate;
   animation: smoothFadeUp 1s ease forwards;
   animation-delay: 0.5s;
     backdrop-filter: blur(6px);
-  padding: 10px 15px;
+  padding: 5px 15px;
   border-radius: 15px;
 }
 
@@ -2113,6 +2115,22 @@ section {
   opacity: 0.8;
 }
 
+
+
+
+/* GERAK KANAN KIRI */
+@keyframes fly {
+  0% {
+    transform: translateX(-20vw) translateY(0);
+  }
+  50% {
+    transform: translateX(20vw) translateY(-20px);
+  }
+  100% {
+    transform: translateX(-20vw) translateY(0);
+  }
+}
+
 .pohon, .rumah-anim {
   position: absolute;
   display: block;
@@ -2138,14 +2156,6 @@ section {
   opacity: 0.3;
 }
 
-/* 🔥 MATIKAN INTERAKSI DI LAYER ANIMASI */
-#particles-canvas,
-#sparkle-container,
-.fog,
-.bg-anim {
-  pointer-events: none !important;
-}
-
 @keyframes fogMove {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -2154,6 +2164,14 @@ section {
 @keyframes fogMoveReverse {
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }
+}
+
+/* 🔥 MATIKAN INTERAKSI DI LAYER ANIMASI */
+#particles-canvas,
+#sparkle-container,
+.fog,
+.bg-anim {
+  pointer-events: none !important;
 }
 
 /* =========================

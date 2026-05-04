@@ -79,19 +79,27 @@ if(bg){
       repeat: -1
     });
 
-    gsap.to(".fog-1", {
-      x: "-50%",
-      duration: 60,
-      repeat: -1,
-      ease: "linear"
-    });
+   
 
-    gsap.to(".fog-2", {
-      x: "50%",
-      duration: 80,
-      repeat: -1,
-      ease: "linear"
-    });
+   if (document.querySelector(".kupu")) {
+      gsap.to(".kupu", {
+        x: 80,
+        y: -40,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".kupu2", {
+        x: -100,
+        y: 30,
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.OutIn"
+      });
+    }
 
     // 🎵 AUTO PLAY (LEGAL karena user klik)
     if (music) {
@@ -501,7 +509,6 @@ modalImg.addEventListener("mouseleave", () => {
 });
 
 });
-
 
 document.querySelectorAll(".btn-copy").forEach(btn=>{
   btn.addEventListener("click", ()=>{
