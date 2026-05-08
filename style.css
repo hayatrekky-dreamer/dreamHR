@@ -2284,3 +2284,123 @@ section {
   user-select: none;
   -webkit-user-drag: none;
 }
+
+/* ===================================
+   🎬 CINEMATIC OPEN EFFECT
+=================================== */
+
+.cinematic-transition{
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* FLASH */
+.light-flash{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* GOLD LAYER */
+.gold-overlay{
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(circle at center,
+      rgba(255,215,0,0.25),
+      rgba(0,0,0,0.9));
+
+  opacity: 0;
+}
+
+/* COVER ZOOM */
+.cover.zoom-out{
+  animation: luxuryZoomOut 2.8s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+@keyframes luxuryZoomOut{
+  0%{
+    transform: scale(1);
+    filter: blur(0px);
+  }
+
+  40%{
+    transform: scale(1.05);
+    filter: blur(0px);
+  }
+
+  100%{
+    transform: scale(1.25);
+    filter: blur(14px);
+    opacity: 0;
+  }
+}
+
+/* LETTER OPEN */
+.cover.open .luxury-letter{
+  transform:
+    translateY(-120px)
+    scale(1.08)
+    rotateX(10deg);
+
+  opacity: 0;
+
+  transition:
+    transform 2s cubic-bezier(0.22,1,0.36,1),
+    opacity 1.5s ease;
+}
+
+/* FLAP OPEN */
+.cover.open .luxury-flap{
+  transform: rotateX(-180deg);
+  transition: transform 2s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* HERO CINEMATIC */
+.hero{
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+body.opened .hero{
+  animation: heroReveal 2s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes heroReveal{
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* GOLD PARTICLE FEEL */
+body.opened::before{
+  content:"";
+  position: fixed;
+  inset:0;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,215,0,0.08), transparent 20%),
+    radial-gradient(circle at 70% 40%, rgba(255,255,255,0.08), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(255,215,0,0.05), transparent 20%);
+
+  animation: floatingLight 10s linear infinite;
+  pointer-events:none;
+  z-index:-1;
+}
+
+@keyframes floatingLight{
+  from{
+    transform: translateY(0);
+  }
+  to{
+    transform: translateY(-60px);
+  }
+}

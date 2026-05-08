@@ -30,92 +30,285 @@ if(btn){
    💌 OPEN INVITATION
 ========================== */
 window.openInvitation = function () {
+
   const cover = document.querySelector(".cover");
   const content = document.getElementById("content");
   const hero = document.querySelector(".hero");
   const bg = document.querySelector(".bg-fixed");
 
-if(bg){
-  bg.style.backgroundImage = "url('assets/bg-web.webp')";
-}
-  cover.classList.add("hide");
+  // 🎵 SOUND EFFECT OPTIONAL
+  // const openSfx = new Audio("assets/open.mp3");
+  // openSfx.volume = 0.6;
+  // openSfx.play();
+
+  // 🎨 Background aktif
+  if (bg) {
+    bg.style.backgroundImage = "url('assets/bg-web.webp')";
+  }
+
+  // ✨ Buat efek flash luxury
+  const flash = document.createElement("div");
+  flash.className = "luxury-flash";
+  document.body.appendChild(flash);
+
+  // 🌟 Particles gold
+  const particles = document.createElement("div");
+  particles.className = "open-particles";
+  document.body.appendChild(particles);
+
+  for (let i = 0; i < 40; i++) {
+    const spark = document.createElement("span");
+    spark.className = "spark";
+    spark.style.left = Math.random() * 100 + "vw";
+    spark.style.animationDelay = Math.random() * 2 + "s";
+    spark.style.animationDuration = (2 + Math.random() * 3) + "s";
+    particles.appendChild(spark);
+  }
+
+  // 🎬 Animasi cover keluar
+  gsap.to(".luxury-envelope", {
+    scale: 1.2,
+    rotateX: 25,
+    opacity: 0,
+    duration: 1.5,
+    ease: "power4.inOut"
+  });
+
+  gsap.to(".floating-particles", {
+    opacity: 0,
+    duration: 1
+  });
+
+  gsap.to(".cover", {
+    opacity: 0,
+    scale: 1.08,
+    filter: "blur(12px)",
+    duration: 1.8,
+    ease: "power4.inOut"
+  });
+
+  // ✨ Flash effect
+  gsap.fromTo(flash,
+    {
+      opacity: 0
+    },
+    {
+      opacity: 1,
+      duration: 0.3,
+      yoyo: true,
+      repeat: 1,
+      onComplete: () => flash.remove()
+    }
+  );
 
   setTimeout(() => {
 
     document.body.classList.add("opened");
+
     cover.style.display = "none";
     content.style.display = "block";
 
     window.scrollTo({ top: 0 });
 
-    // 🎬 GSAP ANIMATION
+    // 🌫️ Initial state
+    gsap.set([
+      ".hero",
+      ".ayat-section",
+      ".event",
+      ".story",
+      ".mempelai-slider",
+      ".gift-section",
+      ".rsvp",
+      ".gallery-section"
+    ], {
+      opacity: 0,
+      y: 80
+    });
+
+    // 🎬 MAIN TIMELINE
     const tl = gsap.timeline();
 
     tl.fromTo(".bg-anim",
-      { opacity: 0 },
-      { opacity: 1, duration: 2 }
+      {
+        scale: 1.3,
+        opacity: 0
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 2.5,
+        ease: "power3.out"
+      }
     )
+
     .fromTo(".fog",
-      { opacity: 0 },
-      { opacity: 0.5, duration: 3 },
-      "-=1.5"
-    )
-    .fromTo(".pohon",
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 2 },
+      {
+        opacity: 0
+      },
+      {
+        opacity: 0.5,
+        duration: 3
+      },
       "-=2"
     )
-    .fromTo(".rumah-anim",
-      { scale: 0.6, opacity: 0, y: 50 },
-      { scale: 1, opacity: 1, y: 0, duration: 1.5 },
-      "-=1.5"
-    );
 
-    // 🌳 LOOP
+    .fromTo(".pohon.kiri",
+      {
+        x: -100,
+        opacity: 0
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 2
+      },
+      "-=2.5"
+    )
+
+    .fromTo(".pohon.kanan",
+      {
+        x: 100,
+        opacity: 0
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 2
+      },
+      "-=2"
+    )
+
+    .fromTo(".rumah-anim",
+      {
+        scale: 0.5,
+        opacity: 0,
+        y: 100
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        ease: "back.out(1.8)"
+      },
+      "-=1.8"
+    )
+
+    // ✨ Hero muncul cinematic
+    .to(".hero", {
+      opacity: 1,
+      y: 0,
+      duration: 1.8,
+      ease: "power3.out"
+    })
+
+    .to(".ayat-section", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".event", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".story", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".mempelai-slider", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".gift-section", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".rsvp", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1")
+
+    .to(".gallery-section", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5
+    }, "-=1");
+
+    // 🌳 Loop pohon
     gsap.to(".pohon", {
       rotate: 2,
-      duration: 3,
+      duration: 4,
       yoyo: true,
-      repeat: -1
+      repeat: -1,
+      ease: "sine.inOut"
     });
 
-   
+    // 🦋 Butterfly animation
+    if (document.querySelector(".kupu")) {
 
-   if (document.querySelector(".kupu")) {
       gsap.to(".kupu", {
-        x: 80,
-        y: -40,
-        duration: 3,
+        x: 100,
+        y: -50,
+        duration: 5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
       });
 
       gsap.to(".kupu2", {
-        x: -100,
-        y: 30,
-        duration: 10,
+        x: -120,
+        y: 40,
+        duration: 7,
         repeat: -1,
         yoyo: true,
-        ease: "sine.OutIn"
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".kupu3", {
+        x: 70,
+        y: -70,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
       });
     }
 
-    // 🎵 AUTO PLAY (LEGAL karena user klik)
+    // 🎵 MUSIC
     if (music) {
       music.volume = 0.5;
-      music.play().then(() => {
-        isPlaying = true;
-        btn.innerText = "🔊";
-      }).catch(()=>{});
+
+      music.play()
+        .then(() => {
+          isPlaying = true;
+          btn.innerText = "🔊";
+        })
+        .catch(() => {});
     }
 
-    // AUTO SCROLL
+    // 🧹 Remove particles
     setTimeout(() => {
-      hero?.scrollIntoView({ behavior: "smooth" });
-    }, 6000);
+      particles.remove();
+    }, 5000);
 
-  }, 800);
+    // 📜 Auto scroll cinematic
+    setTimeout(() => {
+      hero?.scrollIntoView({
+        behavior: "smooth"
+      });
+    }, 6500);
+
+  }, 1800);
 };
 
 /* =========================
